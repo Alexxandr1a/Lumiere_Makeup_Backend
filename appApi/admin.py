@@ -8,11 +8,16 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "price", "featured")
+    list_display = ("name", "price", "category", "featured")
+    list_filter = ("category", "featured")
+    search_fields = ("name",)
+    prepopulated_fields = {"slug": ("name",)} 
 admin.site.register(Product, ProductAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug")
+       list_display = ("name", "slug")
+       prepopulated_fields = {"slug": ("name",)}
+       search_fields = ("name",)
 admin.site.register(Category, CategoryAdmin)
 
 admin.site.register([Cart, CartItem, Review, ProductRating])

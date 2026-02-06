@@ -4,9 +4,12 @@ from .models import CartItem
 from django.contrib.auth import get_user_model
 
 class ProductListSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = ["id", "name", "slug", "image", "price"]
+        fields = ["id", "name", "image", "price"]
+        
     def get_image(self, obj):
         request = self.context.get("request")
         if obj.image and request:
